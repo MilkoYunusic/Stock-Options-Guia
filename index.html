@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beneficios Accionarios y Obligaciones Tributarias en Chile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #111827; /* slate-900 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        .interactive-section {
+            /* Default section style for dark theme */
+            background-color: #1e293b; /* slate-800 */
+            color: #cbd5e1; /* slate-300 */
+            transition: all 0.3s ease-in-out;
+        }
+        .content-hidden {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            transition: all 0.5s ease-out;
+        }
+        .content-visible {
+            max-height: 1500px; 
+            opacity: 1;
+            transition: all 0.5s ease-in;
+        }
+        .timeline-dot {
+            background-color: #0ea5e9; /* sky-500 */
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+        .timeline-dot:hover {
+            transform: scale(1.3);
+            background-color: #0284c7; /* sky-600 */
+        }
+        
+        /* Tab styling based on .module-button concept */
+        .tab-button {
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            font-size: 1.125rem;
+            border-bottom: 3px solid transparent; /* Thicker border for active state */
+            transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+            background-color: #334155; /* slate-700 (inactive) */
+            color: #cbd5e1; /* slate-300 (inactive text) */
+        }
+        .tab-button:hover:not(.active) {
+            background-color: #475569; /* slate-600 (hover inactive) */
+        }
+        .tab-button.active {
+            background-color: #0284c7; /* sky-600 (active) */
+            color: white;
+            border-bottom-color: #0ea5e9; /* sky-500 (active border) */
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+            background-color: #334155; /* slate-700 - Background for active tab content */
+            color: #cbd5e1; /* slate-300 */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85); /* Darker overlay for better contrast */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100; 
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1e293b; /* slate-800 for modal background */
+            color: #cbd5e1; /* slate-300 for modal text */
+            padding: 2rem;
+            border-radius: 0.75rem; 
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            width: 90%;
+            max-width: 550px;
+            border: 1px solid #475569; /* slate-600 border for modal */
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .pulse-warning {
+            animation: pulseWarning 2s infinite;
+        }
+        @keyframes pulseWarning {
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); } /* red-600 */
+            70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+        
+        .header-gradient {
+            background-image: linear-gradient(to right, #1F2937, #4A0E74, #1F2937); 
+        }
+        .icon-cyan { color: #06B6D4; } 
+        .icon-blue { color: #0ea5e9; } /* sky-500 */
+        .text-main-title { color: #f1f5f9; } /* slate-100 for main titles on dark bg */
+        .text-subtitle { color: #e2e8f0; } /* slate-200 for subtitles */
+        .text-body { color: #94a3b8; } /* slate-400 for body text for softer contrast */
+        .text-accent-link { color: #0ea5e9; } /* sky-500 for links */
+
+        /* User-provided CSS */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #334155; /* slate-700 */
+            color: #e2e8f0; /* slate-200 */
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #334155 transparent transparent transparent; /* slate-700 */
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            background-color: #4b5563; /* gray-600 / slate-600 adjusted */
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            margin-right: 8px;
+            vertical-align: middle;
+            transition: background-color 0.2s;
+            border: 1px solid #6b7280; /* gray-500 / slate-500 */
+        }
+        .custom-checkbox:checked {
+            background-color: #0ea5e9; /* sky-500 */
+            border-color: #0ea5e9;
+        }
+        .custom-checkbox:checked::after {
+            content: '✔';
+            font-size: 14px;
+            color: white;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .checklist-item label {
+            cursor: pointer;
+            color: #cbd5e1; /* slate-300 for checklist label */
+        }
+        .sii-input {
+            border: 1px solid #475569; /* slate-600 */
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 4px;
+            background-color: #1e293b; /* slate-800 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        .sii-input:focus {
+            outline: none;
+            border-color: #0ea5e9; /* sky-500 */
+            box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.5);
+        }
+        .sii-input:read-only {
+            background-color: #334155; /* slate-700 */
+            cursor: not-allowed;
+        }
+        .sii-button {
+            background-color: #0ea5e9; /* sky-500 */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .sii-button:hover:not(:disabled) {
+            background-color: #0284c7; /* sky-600 */
+        }
+        .sii-button:disabled {
+            background-color: #475569; /* slate-600 */
+            color: #94a3b8; /* slate-400 */
+            cursor: not-allowed;
+        }
+       
+        /* Box Styles for Dark Theme */
+        .info-box, .warning-box-custom, .danger-box-custom, .tip-box { /* Renamed warning-box and danger-box to avoid conflict if Tailwind uses them */
+            background-color: #1e293b; /* slate-800 */
+            border-left-width: 4px;
+            padding: 1.25rem; /* p-5 */
+            border-radius: 0.375rem; /* rounded-md */
+            margin-bottom: 1.5rem; 
+        }
+
+        .info-box { border-color: #38bdf8; /* sky-400 */ }
+        .info-box-title { color: #7dd3fc; /* sky-300 */ font-weight: 600; }
+        .info-box-content { color: #e0f2fe; /* sky-100 */ }
+
+        .warning-box-custom { border-color: #facc15; /* yellow-400 */ }
+        .warning-box-custom-title { color: #fde047; /* yellow-300 */ font-weight: 600; }
+        .warning-box-custom-content { color: #fef9c3; /* yellow-100 */ }
+        
+        .danger-box-custom { border-color: #f87171; /* red-400 */ }
+        .danger-box-custom-title { color: #fca5a5; /* red-300 */ font-weight: 600; }
+        .danger-box-custom-content { color: #fee2e2; /* red-100 */ }
+
+        .tip-box { border-color: #34d399; /* green-400 */ }
+        .tip-box-title { color: #6ee7b7; /* green-300 */ font-weight: 600; }
+        .tip-box-content { color: #d1fae5; /* green-100 */ }
+
+        .contact-button {
+            display: inline-block;
+            border: 2px solid #0ea5e9; /* sky-500 border */
+            color: #0ea5e9; /* sky-500 text */
+            background-color: transparent;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 4px 6px rgba(0,0,0,0.1); /* Adjusted shadow for dark theme */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
+            margin: 20px auto; 
+        }
+        .contact-button:hover {
+            background-color: #0ea5e9; /* sky-500 */
+            color: #FFFFFF; /* white */
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 8px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile adjustments for contact button */
+        @media (max-width: 600px) {
+        .contact-button {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        // Helper function to toggle visibility of content
+        function toggleContent(id) {
+            const element = document.getElementById(id);
+            const button = document.querySelector(`[onclick="toggleContent('${id}')"]`);
+            if (element) {
+                element.classList.toggle('content-hidden');
+                element.classList.toggle('content-visible');
+                if (button) {
+                    const icon = button.querySelector('svg');
+                    if (icon) {
+                        icon.classList.toggle('rotate-180');
+                    }
+                }
+            }
+        }
+
+        function showInitialResponse(hasReceived) {
+            const responseDiv = document.getElementById('initialQuestionResponse');
+            if (hasReceived) {
+                responseDiv.innerHTML = `<p class="text-emerald-400 font-semibold">¡Excelente! Entonces esta información es crucial para ti. Sigue explorando para entender tus responsabilidades y cómo actuar.</p>`; /* Adjusted color for dark theme */
+            } else {
+                responseDiv.innerHTML = `<p class="text-amber-400 font-semibold">Entendido. Incluso si no estás seguro, o si esto podría aplicar a ti en el futuro, conocer esta información es muy valioso. ¡Te invitamos a seguir!</p>`; /* Adjusted color */
+            }
+            responseDiv.style.display = 'block';
+        }
+
+        function showTimelineDetail(detailId) {
+            document.querySelectorAll('.timeline-detail').forEach(detail => {
+                if (detail.id !== detailId) {
+                    detail.classList.add('content-hidden');
+                    detail.classList.remove('content-visible');
+                }
+            });
+            toggleContent(detailId);
+        }
+        
+        function openTab(event, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+
+        function showContactModal() {
+            document.getElementById('contactModal').classList.add('active');
+        }
+
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            const firstTabButtonModule3 = document.querySelector('#modulo3 .tab-button');
+            if (firstTabButtonModule3) {
+                 openTab({currentTarget: firstTabButtonModule3}, firstTabButtonModule3.getAttribute('onclick').split("'")[1]);
+            }
+        });
+    </script>
+</head>
+<body class="text-slate-300">
+
+    <!-- Header -->
+    <header class="header-gradient text-white p-6 shadow-xl sticky top-0 z-40"> 
+        <div class="container mx-auto">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center tracking-tight">Tus Acciones: Beneficio Valioso, Responsabilidad Crítica</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 md:p-8">
+
+        <!-- Sección de Inicio / Introducción Impactante -->
+        <section id="inicio" class="p-6 md:p-8 rounded-xl shadow-2xl mb-10 interactive-section">
+            <div class="flex flex-col md:flex-row items-center mb-6">
+                <img src="https://placehold.co/180x180/DC2626/FFFFFF?text=%C2%A1ATENCI%C3%93N!" alt="Ilustración de advertencia y beneficio empresarial" class="rounded-full mb-6 md:mb-0 md:mr-8 w-36 h-36 md:w-44 md:h-44 object-cover border-4 border-red-600 pulse-warning">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-red-500 mb-3">Tus Acciones en la Empresa: ¿Un Beneficio con Obligaciones Fiscales que NO Puedes Ignorar?</h2>
+                    <p class="mb-3 text-lg text-slate-200">Los planes de compensación en acciones son un gran incentivo. Pero, <strong class="text-red-400">ignorar tus responsabilidades tributarias en Chile puede transformar este beneficio en un problema costoso.</strong></p> <!-- Adjusted text colors for dark theme -->
+                    <div class="warning-box-custom mt-2"> <!-- Using new custom box style -->
+                        <p class="warning-box-custom-title text-lg">Atención SII</p>
+                        <p class="warning-box-custom-content">Este no es solo un trámite más: el Servicio de Impuestos Internos (SII) tiene la información y las herramientas para fiscalizar. <strong class="underline">No declarar correctamente puede salir caro.</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-slate-700 p-4 rounded-lg mt-6"> <!-- Darker bg for question box -->
+                <p class="font-semibold text-slate-200 mb-2 text-lg">Una pregunta clave para ti:</p>
+                <div id="initialQuestion">
+                    <p class="mb-3 text-slate-300">¿Has recibido, o tienes derecho a recibir, acciones o Stock Options como parte de tu compensación?</p>
+                    <button onclick="showInitialResponse(true)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-6 rounded-lg mr-2 mb-2 md:mb-0 transition-transform transform hover:scale-105">Sí, he recibido</button>
+                    <button onclick="showInitialResponse(false)" class="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-lg mb-2 md:mb-0 transition-transform transform hover:scale-105">No estoy seguro / Aún no</button> 
+                    <div id="initialQuestionResponse" class="mt-4 p-3 rounded-md text-sm bg-slate-600" style="display: none;">
+                        <!-- Response will be injected here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulo 1: ¿Qué son realmente estos Beneficios? (Conceptos Clave) -->
+        <section id="modulo1" class="p-6 md:p-8 rounded-xl shadow-2xl mb-10 interactive-section">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 icon-cyan mr-3 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                <h2 class="text-2xl font-bold text-main-title">Módulo 1: Entendiendo el Valor y la Responsabilidad</h2> 
+            </div>
+            <p class="mb-4 text-body">Estos beneficios representan un valor económico real. Aquí te explicamos los más comunes:</p>
+            <div class="mb-5 p-5 bg-slate-700 rounded-lg border border-slate-600"> 
+                <h3 class="text-xl font-semibold text-subtitle mb-2">Stock Option (Opción de Compra de Acciones)</h3>
+                <p class="text-body">Es un <strong class="text-slate-100">DERECHO a COMPRAR acciones</strong> de tu empresa a un precio futuro (<strong class="italic">precio de ejercicio</strong>), fijado hoy. No eres dueño de la acción hasta que ejerces ese derecho y pagas por ella. Es una <strong class="underline">oportunidad</strong>, no una obligación.</p>
+            </div>
+            <div class="mb-5 p-5 bg-slate-700 rounded-lg border border-slate-600">
+                <h3 class="text-xl font-semibold text-subtitle mb-2">Entrega Directa de Acciones (ej. RSU - Restricted Stock Units)</h3>
+                <p class="text-body">La empresa te <strong class="text-slate-100">ENTREGA ACCIONES</strong> (o su valor) al cumplir condiciones (antigüedad, metas). Con las RSU, por ejemplo, las recibes al "madurar" (<strong class="italic">vesting</strong>), usualmente sin pagar un precio de ejercicio. <strong class="underline">Recibes el valor directamente.</strong></p>
+            </div>
+
+            <div class="mt-6 p-5 border-2 border-slate-600 rounded-lg bg-slate-700"> 
+                <h3 class="text-lg font-semibold mb-3 text-center text-main-title">Visualiza la Diferencia: ¿Opción o Posesión?</h3>
+                <div class="flex flex-col md:flex-row justify-around items-center text-center">
+                    <div class="p-4 mb-4 md:mb-0">
+                        <svg class="w-20 h-20 mx-auto mb-2 icon-blue" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
+                        <p class="font-semibold text-accent-link text-lg">Stock Option</p>
+                        <p class="text-sm text-body">Tienes una <strong class="text-accent-link">promesa de compra futura</strong> a un precio acordado.</p>
+                    </div>
+                    <div class="p-3 text-3xl font-bold text-slate-500 hidden md:block animate-pulse">&rarr;</div>
+                     <div class="p-3 text-3xl font-bold text-slate-500 md:hidden my-2 animate-pulse">&darr;</div>
+                    <div class="p-4">
+                        <svg class="w-20 h-20 mx-auto mb-2 text-emerald-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.75A.75.75 0 0 1 3 4.5h.75m12.75 0v.75A.75.75 0 0 0 15 6h.75m0 0v-.75a.75.75 0 0 0-.75-.75h-.75M3 13.5h18M3 17.25h18a1.5 1.5 0 0 0 1.5-1.5v-6.75a1.5 1.5 0 0 0-1.5-1.5H3a1.5 1.5 0 0 0-1.5 1.5v6.75a1.5 1.5 0 0 0 1.5 1.5Z"></path></svg>
+                        <p class="font-semibold text-emerald-500 text-lg">Acción (Propiedad)</p>
+                        <p class="text-sm text-body">Eres <strong class="text-emerald-500">dueño de una parte</strong> de la empresa.</p>
+                    </div>
+                </div>
+                <p class="text-xs text-center mt-4 text-slate-400 italic">El paso de "Opción" a "Acción" ocurre al "Ejercer" la opción. Ambos escenarios tienen implicancias tributarias.</p>
+            </div>
+        </section>
+
+        <!-- Módulo 2: El Ciclo de Vida de una Stock Option (Los Hitos Clave) -->
+        <section id="modulo2" class="p-6 md:p-8 rounded-xl shadow-2xl mb-10 interactive-section">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 icon-cyan mr-3 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-3.75h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" /></svg>
+                 <h2 class="text-2xl font-bold text-main-title">Módulo 2: El Viaje de tu Stock Option: Hitos Clave</h2>
+            </div>
+            <p class="mb-6 text-body">Cada etapa de una Stock Option es un paso que puede tener consecuencias fiscales. ¡Presta atención!</p>
+            
+            <div class="space-y-8">
+                <!-- Etapa 1: Otorgamiento -->
+                <div class="flex items-start group">
+                    <div class="timeline-dot w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 shrink-0 cursor-pointer" onclick="toggleContent('detailGrant')">1</div>
+                    <div class="bg-slate-700 p-4 rounded-lg shadow-sm flex-grow">
+                        <button onclick="toggleContent('detailGrant')" class="w-full text-left">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-semibold text-lg text-accent-link group-hover:text-sky-400">Otorgamiento (Grant Date): Nace la Opción</h3>
+                                <svg class="w-5 h-5 text-sky-500 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                            </div>
+                        </button>
+                        <p class="text-sm text-body mt-1">Recibes formalmente las opciones. Se definen condiciones: N° de opciones, precio de ejercicio, calendario de maduración.</p>
+                        <div id="detailGrant" class="timeline-detail content-hidden mt-2 text-sm p-3 bg-sky-900 bg-opacity-50 rounded-md border border-sky-700">
+                            <p class="text-sky-200"><strong>Impacto Fiscal General:</strong> Usualmente, <strong class="text-emerald-400">SIN IMPLICANCIA TRIBUTARIA INMEDIATA</strong> en Chile en esta etapa para la mayoría de los planes. Es el punto de partida.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etapa 2: Maduración/Devengo -->
+                <div class="flex items-start group">
+                    <div class="timeline-dot w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 shrink-0 cursor-pointer" onclick="toggleContent('detailVesting')">2</div>
+                    <div class="bg-slate-700 p-4 rounded-lg shadow-sm flex-grow">
+                        <button onclick="toggleContent('detailVesting')" class="w-full text-left">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-semibold text-lg text-accent-link group-hover:text-sky-400">Maduración (Vesting Date): La Opción es Tuya para Ejercer</h3>
+                                <svg class="w-5 h-5 text-sky-500 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                            </div>
+                        </button>
+                        <p class="text-sm text-body mt-1">Cumples requisitos (antigüedad, metas) y tus opciones son "ejercibles". Puede ser de una vez o gradual.</p>
+                        <div id="detailVesting" class="timeline-detail content-hidden mt-2 text-sm p-3 bg-sky-900 bg-opacity-50 rounded-md border border-sky-700">
+                            <p class="text-sky-200"><strong>Impacto Fiscal General:</strong> Aún <strong class="text-emerald-400">SIN EVENTO TRIBUTARIO DIRECTO</strong> por el solo hecho de madurar en la mayoría de los casos. Pero ¡estás un paso más cerca del momento clave!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Etapa 3: Ejercicio -->
+                <div class="flex items-start group">
+                     <div class="timeline-dot bg-red-600 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 shrink-0 group-hover:bg-red-700 cursor-pointer" onclick="toggleContent('detailExercise')">3</div>
+                    <div class="bg-slate-700 p-4 rounded-lg shadow-sm flex-grow border-l-4 border-red-500">
+                        <button onclick="toggleContent('detailExercise')" class="w-full text-left">
+                            <div class="flex justify-between items-center">
+                                 <h3 class="font-semibold text-lg text-red-400 group-hover:text-red-300">Ejercicio (Exercise Date): ¡MOMENTO CLAVE! Compras las Acciones</h3>
+                                <svg class="w-5 h-5 text-red-500 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                            </div>
+                        </button>
+                        <p class="text-sm text-body mt-1">Decides usar tu opción: pagas el precio de ejercicio y te conviertes en accionista.</p>
+                        <div id="detailExercise" class="timeline-detail content-hidden mt-2 text-sm p-3 bg-red-900 bg-opacity-30 rounded-md border border-red-700">
+                            <p class="font-bold text-red-300">¡ALERTA MÁXIMA! Aquí es donde la historia tributaria se pone seria. Dependiendo de si tu plan es "Pactado" o "No Pactado" (ver Módulo 3), el ejercicio PUEDE generar una obligación tributaria INMEDIATA en Chile como "Mayor Remuneración".</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Etapa 4: Venta -->
+                <div class="flex items-start group">
+                    <div class="timeline-dot bg-emerald-500 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1 shrink-0 group-hover:bg-emerald-700 cursor-pointer" onclick="toggleContent('detailSale')">4</div>
+                    <div class="bg-slate-700 p-4 rounded-lg shadow-sm flex-grow border-l-4 border-emerald-500">
+                         <button onclick="toggleContent('detailSale')" class="w-full text-left">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-semibold text-lg text-emerald-400 group-hover:text-emerald-300">Venta (Sale/Enajenación): Realizas la Ganancia (o Pérdida)</h3>
+                                <svg class="w-5 h-5 text-emerald-500 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                            </div>
+                        </button>
+                        <p class="text-sm text-body mt-1">Vendes las acciones adquiridas (o la opción misma, si es posible).</p>
+                        <div id="detailSale" class="timeline-detail content-hidden mt-2 text-sm p-3 bg-emerald-900 bg-opacity-30 rounded-md border border-emerald-700">
+                            <p class="font-bold text-emerald-300">La venta de acciones o de la opción usualmente genera una Ganancia de Capital (o pérdida) que DEBE declararse y por la cual se pagan impuestos en Chile. Esto aplica tanto a planes pactados como no pactados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-xs text-center mt-8 text-slate-400 italic">Haz clic en cada etapa para desplegar su impacto fiscal potencial. ¡No te saltes ninguna!</p>
+        </section>
+
+        <!-- Módulo 3: El Punto Crucial: ¿Cuándo Tributas en Chile? -->
+        <section id="modulo3" class="p-6 md:p-8 rounded-xl shadow-2xl mb-10 interactive-section">
+             <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 icon-cyan mr-3 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h12A2.25 2.25 0 0 0 20.25 14.25V3m-16.5 0h16.5M3.75 3H1.5m19.5 0H22.5M3.75 14.25v3.75A2.25 2.25 0 0 0 6 20.25h12A2.25 2.25 0 0 0 20.25 18v-3.75m-16.5 0h16.5m-12-9.75h.008v.008H8.25v-.008Zm4.5 0h.008v.008H12.75v-.008Zm4.5 0h.008v.008H17.25v-.008Z" /></svg>
+                <h2 class="text-2xl font-bold text-main-title">Módulo 3: Pactado vs. No Pactado - La Bifurcación Fiscal Clave</h2>
+            </div>
+            <p class="mb-1 text-body">La Ley N° 21.210 y la Circular N° 43 del SII son cruciales. La forma en que tributas depende de si tu plan está <strong class="text-sky-400">"Pactado"</strong> (en tu contrato laboral o convenio) o <strong class="text-red-400">"No Pactado"</strong> (más común en ofertas discrecionales o de multinacionales).</p>
+            <div class="warning-box-custom my-3">
+                <p class="warning-box-custom-title">¡Atención a Esta Diferencia!</p>
+                <p class="warning-box-custom-content text-sm">Esta distinción CAMBIA TODO respecto a cuándo y cómo pagas impuestos. ¡Es vital saber en qué caso estás!</p>
+            </div>
+            
+            <div class="my-6">
+                <div class="flex rounded-t-lg overflow-hidden">
+                    <button class="tab-button flex-1" onclick="openTab(event, 'pactado')">
+                        Planes PACTADOS
+                    </button>
+                    <button class="tab-button flex-1" onclick="openTab(event, 'noPactado')">
+                        Planes NO PACTADOS
+                    </button>
+                </div>
+
+                <div id="pactado" class="tab-content p-5 rounded-b-lg"> 
+                    <h3 class="text-xl font-bold text-sky-400 mb-3">Planes PACTADOS (Formalizados en Contrato Laboral)</h3>
+                    <p class="mb-3 text-body">Si el plan está en tu contrato o convenio colectivo:</p>
+                    <ul class="list-none space-y-2 mb-4">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-emerald-400 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><strong class="text-slate-100">Otorgamiento y Ejercicio:</strong> <span class="bg-emerald-700 text-emerald-100 px-2 py-0.5 rounded-full text-sm font-medium">NO TRIBUTAS</span> en estos momentos.</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-400 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg><strong class="text-slate-100">Venta (Acciones u Opción):</strong> <span class="bg-red-700 text-red-100 px-2 py-0.5 rounded-full text-sm font-medium">SÍ TRIBUTAS.</span> La utilidad es <strong class="text-red-300">Ganancia de Capital</strong> (IGC/IA).</li>
+                    </ul>
+                    <p class="text-sm text-body"><strong>Cálculo al Vender:</strong> Precio venta MENOS costo de adquisición (precio ejercicio + otros costos). <em class="text-sky-400">Potencialmente más simple, pero la carga fiscal se concentra al final.</em></p>
+                </div>
+
+                <div id="noPactado" class="tab-content p-5 rounded-b-lg">
+                    <h3 class="text-xl font-bold text-red-400 mb-3">Planes NO PACTADOS (Más Común, ¡Máxima Atención!)</h3>
+                    <p class="mb-3 text-body">Si el plan NO está en tu contrato (oferta discrecional, global, etc.):</p>
+                     <ul class="list-none space-y-2 mb-4">
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-400 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg><strong class="text-slate-100">Ejercicio (Compra de Acciones):</strong> <span class="bg-red-700 text-red-100 px-2 py-0.5 rounded-full text-sm font-medium">¡SÍ TRIBUTAS AQUÍ!</span> La diferencia (valor mercado acción - precio ejercicio) es <strong class="text-red-300">MAYOR REMUNERACIÓN</strong> (afecta a IUSC).</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 text-red-400 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg><strong class="text-slate-100">Venta (Acciones):</strong> <span class="bg-red-700 text-red-100 px-2 py-0.5 rounded-full text-sm font-medium">SÍ TRIBUTAS DE NUEVO.</span> La utilidad (precio venta - valor mercado al ejercer) es <strong class="text-red-300">Ganancia de Capital</strong> (IGC/IA).</li>
+                    </ul>
+                    <p class="text-sm text-body"><strong>Cálculo al Ejercer:</strong> (Valor mercado acción al ejercer - Precio ejercicio) x N° acciones. <em class="text-red-400">¡Implica un desembolso de impuestos ANTES de vender!</em></p>
+                </div>
+            </div>
+            <p class="mt-6 text-sm text-slate-300"><strong>Impuestos aplicables:</strong> IUSC (trabajadores dependientes) para "Mayor Remuneración", e IGC/IA para "Ganancias de Capital". Las tasas dependen de tus ingresos. <em class="text-slate-500">El Art. 107 LIR para acciones chilenas con presencia bursátil es específico y menos común en estos planes.</em></p>
+             <div class="mt-6 p-4 warning-box-custom">
+                <h4 class="warning-box-custom-title text-lg mb-2">Ejemplo Rápido: El Costo de un Plan NO Pactado</h4>
+                <p class="text-xs warning-box-custom-content">Opciones por 100 acciones a $10 c/u. Al ejercer, valen $50 en mercado. Pagas $1.000.</p>
+                <p class="text-xs warning-box-custom-content mt-1"><strong>Al EJERCER:</strong> Tu <strong class="font-bold">Mayor Remuneración</strong> es ($50-$10)x100 = <strong class="font-bold text-red-400">$4.000</strong>. Esto se suma a tu sueldo y paga IUSC <strong class="font-bold text-red-400">¡AHORA MISMO!</strong></p>
+                <p class="text-xs warning-box-custom-content mt-1">Luego vendes a $70 (ingresas $7.000).</p>
+                <p class="text-xs warning-box-custom-content mt-1"><strong>Al VENDER:</strong> Tu <strong class="font-bold">Ganancia de Capital</strong> es ($70-$50)x100 = <strong class="font-bold text-red-400">$2.000</strong>. Esto paga IGC/IA.</p>
+                <p class="text-xs text-slate-400 italic mt-2">Ejemplo simplificado. Una asesoría detallada es crucial para no pagar de más ni de menos.</p>
+            </div>
+        </section>
+
+        <!-- Módulo 4: ¡Atención! Si tus Acciones/Opciones son de una Empresa Extranjera... -->
+        <section id="modulo4" class="p-6 md:p-8 rounded-xl shadow-2xl mb-10 interactive-section">
+            <div class="flex items-center mb-4 text-orange-500">
+                <svg class="w-12 h-12 mr-4 shrink-0 animate-pulse icon-cyan" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.25-8.25-3.286Zm0 13.036h.008v.008H12v-.008Z" /></svg>
+                <h2 class="text-2xl md:text-3xl font-bold text-main-title">Módulo 4: Fronteras Cruzadas - Implicancias de Activos Extranjeros</h2>
+            </div>
+            <p class="mb-4 text-lg text-slate-200">Si tus acciones o opciones son de una <strong class="text-orange-400">empresa extranjera</strong> (ej. casa matriz en EE.UU. o Europa), esto añade una capa <strong class="underline">CRÍTICA</strong> de obligaciones.</p>
+            <div class="warning-box-custom">
+                <p class="warning-box-custom-title text-xl mb-2">¡Obligación de INFORMAR, no solo de pagar!</p>
+                <p class="warning-box-custom-content">Tener inversiones, acciones, opciones, o incluso cuentas bancarias en el extranjero donde se gestionan estos beneficios, te obliga a <strong class="uppercase">informar activamente al SII chileno.</strong></p>
+                <p class="warning-box-custom-content mt-2">Esto es <strong class="font-extrabold">INDEPENDIENTE</strong> de si ya pagaste impuestos en otro país o si ya tributaste en Chile por el ejercicio (en planes no pactados). La omisión de esta información es una falta grave.</p>
+            </div>
+            <p class="mt-4 text-body">Esta obligación de informar se materializa principalmente a través de la Declaración Jurada 1929, que veremos a continuación. <strong class="text-red-400">No subestimes este punto.</strong></p>
+        </section>
+
+        <!-- Módulo 5: Tus Obligaciones con el SII: ¡La DJ1929 y el F22! -->
+        <section id="modulo5" class="p-6 md:p-8 rounded-xl shadow-2xl mb-10 interactive-section danger-box-custom border-4 pulse-warning">
+            <div class="flex items-center mb-4 text-red-400">
+                 <svg class="w-12 h-12 mr-4 shrink-0 icon-cyan" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.412 15.655 9.75 21.75l3.745-4.012M9.255 9.75H3.975l3.039-3.04M21.005 9.75h-5.28M21.75 12h-5.505m0 0a3.284 3.284 0 0 0-3.23-3.233 3.284 3.284 0 0 0-3.233 3.233M10.012 15.655l1.665 6.095 3.745-4.012M14.745 9.75H20.025l-3.04-3.04M9.75 3.75 12 6.75m0 0 2.25-3M12 6.75V2.25m0 0a3.284 3.284 0 0 0-3.233 3.233M12 2.25a3.284 3.284 0 0 1 3.233 3.233" /></svg>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-main-title">Módulo 5: El Dúo Dinámico del Cumplimiento: DJ1929 y F22</h2>
+            </div>
+            <p class="danger-box-custom-title font-semibold text-lg mb-5">Aquí es donde muchos tropiezan. Entender y cumplir con estas dos declaraciones es <strong class="uppercase">ABSOLUTAMENTE ESENCIAL</strong> para evitar problemas serios con el SII.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-slate-700 p-5 rounded-lg shadow-md border border-red-500">
+                    <h3 class="text-xl font-bold text-red-400 mb-2">Declaración Jurada Anual N° 1929 (DJ1929)</h3>
+                    <p class="mb-2 text-sm text-slate-300">Es tu deber <strong class="uppercase">informar anualmente</strong> al SII sobre tus inversiones y operaciones financieras en el <strong class="underline">EXTERIOR</strong>.</p>
+                    <ul class="list-disc list-inside space-y-1 mb-3 text-xs text-slate-400">
+                        <li><strong>¿Qué se informa?</strong> Tenencia de acciones extranjeras, opciones, dividendos, ganancias/pérdidas, cuentas de inversión, etc., al 31 de diciembre.</li>
+                        <li><strong>Fecha Límite (¡CRÍTICA!):</strong> Usualmente 30 de junio. <strong class="text-red-400">PERO ES VITAL PRESENTARLA ANTES DEL F22 (ABRIL)</strong> para consistencia.</li>
+                        <li><strong>Moneda:</strong> TODO en Pesos Chilenos ($CLP), usando tipo de cambio oficial al 31/12.</li>
+                    </ul>
+                    <p class="text-xs italic text-red-400 font-semibold">La DJ1929 NO es un impuesto, ¡es una obligación de información! Pero no presentarla (o hacerlo mal) puede costar CARO en multas.</p>
+                </div>
+
+                <div class="bg-slate-700 p-5 rounded-lg shadow-md border border-red-500">
+                    <h3 class="text-xl font-bold text-red-400 mb-2">Formulario 22 (F22) - Declaración Anual de Renta</h3>
+                    <p class="mb-2 text-sm text-slate-300">Aquí <strong class="uppercase">declaras y pagas impuestos</strong> por las RENTAS obtenidas de estos planes.</p>
+                     <ul class="list-disc list-inside space-y-1 mb-3 text-xs text-slate-400">
+                        <li>"Mayor Remuneración" (ejercicio de opciones no pactadas).</li>
+                        <li>"Ganancias de Capital" (venta de opciones o acciones).</li>
+                        <li>La información de tu DJ1929 es la base para que el SII verifique tu F22. <strong class="text-red-400">¡Deben conversar!</strong></li>
+                    </ul>
+                    <p class="text-xs italic text-red-400 font-semibold">Omitir rentas en el F22 significa evasión de impuestos, con multas e intereses acumulativos.</p>
+                </div>
+            </div>
+
+            <div class="header-gradient text-white p-6 rounded-lg shadow-xl mt-4"> 
+                <h3 class="text-2xl font-extrabold mb-3 text-center uppercase tracking-wider text-yellow-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 inline mr-2 animate-ping"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" /></svg>¡ADVERTENCIA MÁXIMA: LAS CONSECUENCIAS DE LA OMISIÓN!</h3>
+                <p class="mb-3 text-slate-200"><strong class="font-extrabold text-yellow-300">EL SII SABE:</strong> Gracias a acuerdos internacionales (FATCA, CRS), el SII recibe información de tus activos y rentas en el extranjero. <strong class="underline text-yellow-300">Intentar ocultarlos es una estrategia perdedora.</strong></p>
+                <p class="mb-3 text-slate-200"><strong class="font-extrabold text-yellow-300">MULTAS DOLOROSAS:</strong> No presentar la DJ1929, o hacerlo con errores, conlleva multas que pueden ser un porcentaje del valor de los activos no informados, ¡incluso si no debías pagar más impuestos! Suma a esto multas e intereses por impuestos no pagados en el F22.</p>
+                <p class="mb-3 text-slate-200"><strong class="font-extrabold text-yellow-300">AUDITORÍAS Y COBROS RETROACTIVOS:</strong> Una fiscalización puede significar revisar años anteriores, resultando en deudas fiscales que crecen exponencialmente con el tiempo.</p>
+                <p class="text-center font-bold text-lg mt-4 text-yellow-300">"No sabía" no es una excusa válida. La responsabilidad es tuya.</p>
+            </div>
+
+            <div class="mt-8 p-5 warning-box-custom loss-aversion-highlight">
+                <h4 class="warning-box-custom-title text-xl mb-3 text-center">Simulador Rápido: El Verdadero Costo de la Inacción (Ejemplo Conceptual)</h4>
+                <p class="text-sm warning-box-custom-content mb-2 text-center">Imagina una ganancia no declarada de <strong class="text-red-400">$5.000.000 CLP</strong> hace 3 años. Podrías enfrentar:</p>
+                <ul class="list-none space-y-2 text-sm warning-box-custom-content">
+                    <li class="flex items-start"><span class="text-red-400 font-bold text-2xl mr-2">&raquo;</span><div><strong>Impuesto Original Adeudado:</strong> Fácilmente $1.000.000 - $1.750.000 (o más, según tu IGC).</div></li>
+                    <li class="flex items-start"><span class="text-red-400 font-bold text-2xl mr-2">&raquo;</span><div><strong>Intereses Acumulados:</strong> Tasas mensuales que <strong class="underline">incrementan la deuda día a día.</strong></div></li>
+                    <li class="flex items-start"><span class="text-red-400 font-bold text-2xl mr-2">&raquo;</span><div><strong>Multas por Impuesto No Pagado:</strong> Hasta un 60% (o más) <strong class="underline">SOBRE el impuesto adeudado.</strong></div></li>
+                    <li class="flex items-start"><span class="text-red-400 font-bold text-2xl mr-2">&raquo;</span><div><strong>Multas por DJ1929 (si aplica):</strong> Adicionales y potencialmente <strong class="underline">muy elevadas</strong> (calculadas sobre activos omitidos o UTAs).</div></li>
+                </ul>
+                <p class="text-md text-red-400 mt-4 font-extrabold text-center bg-slate-800 p-3 rounded">COSTO TOTAL PODRÍA SER = ¡Múltiples veces el impuesto original! + Estrés + Tiempo perdido.</p>
+                <p class="text-xs text-slate-400 mt-3 italic text-center">Este es un ejemplo para ilustrar el riesgo. Cada caso es diferente.</p>
+            </div>
+            
+            <div class="mt-8 p-4 bg-slate-700 border border-slate-600 rounded-md"> 
+                <h4 class="font-semibold text-slate-200 mb-2 text-lg">Autoevaluación Rápida (Para tu reflexión):</h4>
+                <div class="checklist-item">
+                    <label class="flex items-center mb-2 text-sm">
+                        <input type="checkbox" class="custom-checkbox"> ¿He recibido acciones/opciones de una empresa extranjera?
+                    </label>
+                </div>
+                <div class="checklist-item">
+                    <label class="flex items-center mb-2 text-sm">
+                        <input type="checkbox" class="custom-checkbox"> Si es así, ¿he presentado TODAS las DJ1929 correspondientes, a tiempo y correctamente?
+                    </label>
+                </div>
+                <div class="checklist-item">
+                     <label class="flex items-center mb-2 text-sm">
+                        <input type="checkbox" class="custom-checkbox"> ¿He incluido TODAS las rentas de estos planes (mayor remuneración, ganancias) en mis F22?
+                    </label>
+                </div>
+                <p class="text-xs text-slate-400 mt-1 italic">Si alguna respuesta es "No" o "No estoy seguro", es una señal de alerta.</p>
+            </div>
+        </section>
+
+        <!-- Módulo 6: Pasos a Seguir (Llamada a la Acción) -->
+        <section id="modulo6" class="p-6 md:p-8 rounded-xl shadow-2xl mb-10 interactive-section tip-box border-4"> 
+            <div class="flex items-center mb-4 text-emerald-400">
+                 <svg class="w-12 h-12 mr-4 shrink-0 icon-cyan" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                <h2 class="text-2xl md:text-3xl font-bold text-main-title">Módulo 6: Es Momento de Actuar - Tu Camino hacia la Tranquilidad Fiscal</h2>
+            </div>
+            <p class="text-xl font-semibold text-slate-100 mb-4">Si esta información te ha generado dudas o identificaste posibles omisiones, <strong class="text-emerald-400">¡felicidades por darte cuenta!</strong> Ahora es el momento de tomar el control y actuar de forma proactiva.</p>
+            
+            <h3 class="text-lg font-semibold text-emerald-300 mb-3">Pasos Inteligentes para Proteger tu Patrimonio:</h3>
+            <ol class="list-decimal list-inside space-y-3 mb-6 text-slate-300">
+                <li><strong>Reúne tu Información Clave:</strong> Contratos, cartas de otorgamiento, fechas (grant, vesting, ejercicio, venta), montos, extractos de brokers extranjeros. <em class="text-sm text-emerald-400">(Ser organizado es el primer paso al ahorro)</em>.</li>
+                <li><strong>Diagnóstico Honesto de tu Situación:</strong> ¿Pactado o no pactado? ¿Empresa local o extranjera? ¿Qué has declarado y qué podría faltar? <em class="text-sm text-emerald-400">(La claridad hoy evita sorpresas mañana)</em>.</li>
+                <li><strong>Explora la Regularización Voluntaria:</strong> Si hay incumplimientos, el SII ofrece vías para rectificar o presentar fuera de plazo. <strong class="text-emerald-300">Actuar ANTES de una fiscalización SIEMPRE es más favorable.</strong> <em class="text-sm text-emerald-400">(Adelantarte te da el control)</em>.</li>
+            </ol>
+
+            <div class="text-center mt-8 p-6 header-gradient rounded-lg shadow-xl"> 
+                <h3 class="text-2xl font-extrabold text-white mb-3">¿Sientes que esto te supera? ¡No estás solo!</h3>
+                <p class="mb-5 text-slate-200 text-lg">La normativa tributaria es un laberinto. Un error involuntario puede costar caro. La mejor inversión es la asesoría experta.</p>
+                <p class="mb-5 text-cyan-300 font-semibold">Un especialista puede ayudarte a:</p>
+                <ul class="list-disc list-inside text-left mx-auto max-w-md mb-6 text-slate-100 space-y-1">
+                    <li>Navegar la complejidad y evitar errores costosos.</li>
+                    <li>Optimizar tu carga tributaria dentro de la ley.</li>
+                    <li>Asegurar tu tranquilidad y cumplimiento.</li>
+                </ul>
+                <button onclick="showContactModal()" class="contact-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 inline mr-2"><path d="M3.5 2.75a.75.75 0 0 0-1.5 0v14.5a.75.75 0 0 0 1.5 0v-1.321c.324.132.676.244 1.04.334A10.09 10.09 0 0 0 10 18c5.17 0 9.446-3.777 9.953-8.636a.75.75 0 0 0-.707-.864L12 8.182V2.75A.75.75 0 0 0 11.25 2H3.5Zm11.5 8.225L18.173 12H15V10.975ZM10 16.5a8.59 8.59 0 0 1-4.54-1.342A8.59 8.59 0 0 1 1 9.364a8.59 8.59 0 0 1 4.54-5.158A8.59 8.59 0 0 1 10 2.5c4.532 0 8.22 3.204 8.48 7.364a.75.75 0 0 1-.082.001l-3.182-.001a.75.75 0 0 0-.718.818v1.364A2.25 2.25 0 0 1 12.25 14H10a2.25 2.25 0 0 1-2.25-2.25V10.25a.75.75 0 0 0-1.5 0v1.5A3.75 3.75 0 0 0 10 15.5h2.25a.75.75 0 0 0 .75-.75v-1.975a.75.75 0 0 0-.326-.625L10.5 10.818V16.5Z" /></svg>
+                    Solicita tu Consulta Estratégica
+                </button>
+                <p class="text-xs text-slate-300 mt-4 italic">Un primer paso hacia tu tranquilidad fiscal.</p>
+            </div>
+        </section>
+
+        <!-- Página Final / Disclaimer -->
+        <footer id="disclaimer" class="bg-slate-900 text-slate-400 p-6 md:p-8 rounded-t-xl shadow-inner mt-12"> 
+            <h2 class="text-xl font-semibold text-white mb-4">Consideraciones Finales: Tu Responsabilidad es Clave</h2>
+            <p class="mb-3 text-sm">Esta webapp es una <strong class="text-cyan-400">herramienta educativa y de orientación general</strong>. Su objetivo es simplificar la comprensión del tratamiento tributario de los planes de compensación en acciones en Chile, basada en la normativa e interpretaciones vigentes (según fuentes consultadas al <span id="currentYear"></span>).</p>
+            <p class="mb-3 text-sm uppercase font-bold text-cyan-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1"><path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" /></svg>NO CONSTITUYE ASESORÍA LEGAL NI TRIBUTARIA PARTICULAR. Su situación individual puede requerir un análisis específico y detallado.</p>
+            <p class="text-sm">Te instamos encarecidamente a <strong class="text-cyan-400">SIEMPRE buscar la validación y consejo de un asesor tributario profesional</strong> antes de tomar cualquier decisión o realizar presentaciones ante el SII. La prevención y el cumplimiento correcto son tu mejor estrategia.</p>
+            <p class="text-xs mt-6 text-center">&copy; Herramienta Educativa. Derechos Reservados (Ejemplo).</p>
+        </footer>
+    </main>
+
+    <!-- Modal para Contacto -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-slate-100">Contacta a un Experto</h3>
+                <button onclick="closeContactModal()" class="text-slate-400 hover:text-red-400 transition-colors">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <p class="mb-4 text-slate-300">Estás a un paso de obtener la claridad y tranquilidad que necesitas. Completa el siguiente formulario (ejemplo) o contáctanos directamente:</p>
+            <!-- Ejemplo de Formulario de Contacto -->
+            <form id="contactFormExample">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-slate-300 mb-1">Nombre:</label>
+                    <input type="text" id="name" name="name" class="sii-input" placeholder="Tu Nombre Completo">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-slate-300 mb-1">Email:</label>
+                    <input type="email" id="email" name="email" class="sii-input" placeholder="tuemail@ejemplo.com">
+                </div>
+                <div class="mb-4">
+                    <label for="message" class="block text-sm font-medium text-slate-300 mb-1">Consulta Breve:</label>
+                    <textarea id="message" name="message" rows="3" class="sii-input" placeholder="Describe brevemente tu situación o pregunta."></textarea>
+                </div>
+                <button type="submit" class="sii-button w-full mt-2 transform hover:scale-105">
+                    Enviar Consulta (Ejemplo)
+                </button>
+            </form>
+            <p class="text-xs text-slate-500 mt-3 text-center">Nos pondremos en contacto a la brevedad. (Este es un modal de ejemplo, no funcional).</p>
+        </div>
+    </div>
+</body>
+</html>
