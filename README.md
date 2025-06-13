@@ -21,6 +21,18 @@ Todo esto en un formato responsivo, interactivo y amigable.
 * Diseño modular tipo "acordeón" (expandible).
 * Botones de contacto directo por WhatsApp.
 
+## 📘 Diferencias entre Stock Options y RSU
+
+* **Stock Options**: Otorgan un **derecho** (no una obligación) de comprar acciones a un precio determinado en el futuro. Generalmente están sujetas a un período de consolidación (vesting) y el trabajador debe ejercerlas activamente.
+
+* **RSU (Restricted Stock Units)**: Son una **promesa de entrega de acciones** si se cumplen ciertos requisitos, como mantenerse en la empresa un período determinado. El trabajador **no debe pagar por recibirlas**, pero debe tributar cuando se le entregan.
+
+* **Diferencias clave**:
+
+  * Las Stock Options requieren una acción voluntaria del trabajador para adquirir las acciones; las RSU se asignan automáticamente al cumplir condiciones.
+  * Las Stock Options pueden quedar sin valor si el precio de mercado es inferior al precio pactado; las RSU siempre tienen un valor al momento de la entrega.
+  * Tienen tratamientos tributarios distintos: las Stock Options pueden diferir la tributación hasta su ejercicio, mientras que las RSU generan un ingreso al momento de la entrega.
+
 ## 📸 Imagen para compartir
 
 La imagen destacada que aparece al compartir el link en WhatsApp, redes o correo está ubicada en: `img/stockoptions_share.jpg`.
@@ -30,7 +42,7 @@ La imagen destacada que aparece al compartir el link en WhatsApp, redes o correo
 * **Formato horizontal** (preferiblemente 1200x630px).
 * Texto sobre fondo oscuro o semitransparente, como:
 
-  > "¿Recibiste acciones de tu empresa? Descubre qué debes declarar en Chile."
+  > "¿Tienes Stock Options o RSU? Descubre qué debes declarar en Chile."
 * Tu nombre, logo (si tienes), y una llamada a la acción como:
 
   > "Guía Tributaria Gratis – Hecha por Milko Yunusic"
@@ -54,3 +66,4 @@ Si tienes preguntas o sugerencias, puedes contactar a:
 ---
 
 © 2025 – Todos los derechos reservados.
+
