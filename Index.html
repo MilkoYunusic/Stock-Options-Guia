@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía: Stock Options en Chile</title>
+
+    <!-- Metas para Redes Sociales (Open Graph) -->
+    <meta property="og:title" content="Guía: Stock Options en Chile">
+    <meta property="og:description" content="Una guía paso a paso para entender cómo funcionan, su ciclo de vida y su tratamiento tributario en Chile.">
+    <!-- IMPORTANTE: Reemplaza la siguiente URL con la URL de tu imagen en el repositorio de GitHub -->
+    <meta property="og:image" content="https://raw.githubusercontent.com/milkoyunusic/Stock-Options-Guia/main/images/preview-image.png"> 
+    <meta property="og:url" content="https://milkoyunusic.github.io/Stock-Options-Guia/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo para usar la fuente Inter y configurar colores base */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Tailwind gray-900 */
+            color: #d1d5db; /* Tailwind gray-300 */
+        }
+        /* Animación para la aparición suave del modal */
+        .modal-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        /* Estilo para los títulos principales y de módulo */
+        .text-teal-400 {
+            color: #2dd4bf;
+        }
+        .bg-gray-800 {
+            background-color: #1f2937;
+        }
+        .border-gray-700 {
+            border-color: #374151;
+        }
+        /* Transición suave para la rotación del ícono */
+        .chevron-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* Estilo para la definición en el modal */
+        #modal-definition ul {
+            padding-left: 1.5rem;
+        }
+        #modal-definition .definition-item {
+            margin-bottom: 0.75rem;
+        }
+        /* Scrollbar personalizado para el modal */
+        #modal-definition::-webkit-scrollbar {
+            width: 8px;
+        }
+        #modal-definition::-webkit-scrollbar-track {
+            background: #1f2937; /* bg-gray-800 */
+        }
+        #modal-definition::-webkit-scrollbar-thumb {
+            background-color: #4b5563; /* bg-gray-600 */
+            border-radius: 4px;
+            border: 2px solid #1f2937; /* bg-gray-800 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenedor Principal -->
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+
+        <!-- Encabezado -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-white">Guía: <span class="text-teal-400">Stock Options</span> en Chile</h1>
+            <p class="mt-4 text-lg text-gray-400">Una guía paso a paso para entender cómo funcionan, su ciclo de vida y su tratamiento tributario en Chile.</p>
+        </header>
+
+        <!-- Introducción -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 mb-8">
+            <h2 class="text-2xl font-semibold text-white mb-3">¡Bienvenido/a!</h2>
+            <p class="text-gray-300">Esta guía interactiva está diseñada para explicar de manera clara y sencilla el mundo de las Stock Options. El objetivo es que puedas navegar por cada módulo, entender los conceptos clave y conocer las implicancias tributarias en Chile, todo en un formato amigable y fácil de seguir.</p>
+            <p class="mt-3 text-gray-400">Utiliza los módulos a continuación para explorar cada tema a tu propio ritmo.</p>
+        </div>
+
+        <!-- Módulos Interactivos -->
+        <div id="modules-container" class="space-y-4">
+
+            <!-- Módulo 1: Entendiendo el Valor y la Responsabilidad -->
+            <div class="module-item bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+                <div class="module-header p-5 cursor-pointer flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-teal-400">Módulo 1: Entendiendo el Valor y la Responsabilidad</h3>
+                    <svg class="chevron-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="module-content hidden p-5 border-t border-gray-700 space-y-4">
+                    <div class="bg-gray-700 p-4 rounded-lg border border-gray-600">
+                        <h4 class="font-bold text-teal-400 mb-2">Stock Options</h4>
+                        <p>La empresa te da el <strong>DERECHO A COMPRAR</strong> (en el futuro) acciones a un precio fijo (Strike Price). No eres dueño de la acción hasta que ejerces ese derecho y pagas por ella. Es una <strong>oportunidad, no una obligación.</strong></p>
+                    </div>
+
+                    <div class="bg-gray-700 p-4 rounded-lg border border-gray-600 info-container">
+                        <h4 class="font-bold text-teal-400 mb-2">Entrega Directa de Acciones</h4>
+                        <p>Implica la transferencia inmediata (o relativamente inmediata) de la propiedad de acciones a tu patrimonio, a veces de forma gratuita o a un precio preferencial.
+                            <span class="info-toggle-trigger cursor-pointer inline-flex items-center justify-center bg-teal-900 hover:bg-teal-800 rounded-full w-5 h-5 ml-1 animate-pulse align-middle">
+                                <span class="font-bold text-teal-300 text-xs">!</span>
+                            </span>
+                        </p>
+                        <div class="info-panel hidden mt-3 pt-3 border-t border-gray-600/50 text-sm text-gray-400">
+                            Si recibes acciones directamente como pago por tus servicios, y esto no se configura bajo una interpretación específica que lo permita, el valor de mercado de esas acciones al momento en que adquieres el derecho a ellas se considera remuneración y tributa en ese momento. Estaría afecta a IUSC si eres trabajador dependiente y el empleador retiene, o a IGC si debes declararlo tú. La posterior venta de esas acciones generaría una ganancia de capital, donde el costo tributario sería el valor que ya tributó como remuneración.
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-700 p-4 rounded-lg border border-gray-600">
+                        <h4 class="font-bold text-teal-400 mb-2">Restricted Stock (RS) / Restricted Stock Units (RSU)</h4>
+                        <p>Son otros tipos de planes. No te dan una opción de compra, sino que implican la entrega directa de acciones o el derecho a recibir acciones/efectivo equivalente a su valor, generalmente sin pago previo, pero con restricciones (como no poder venderlas) hasta cumplir un período de "vesting" (devengo) o metas.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Módulo 2: Glosario y Ciclo de Vida de las Stock Options -->
+            <div class="module-item bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+                <div class="module-header p-5 cursor-pointer flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-teal-400">Módulo 2: Glosario y Ciclo de Vida de las Stock Options</h3>
+                    <svg class="chevron-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="module-content hidden p-5 border-t border-gray-700">
+                     <p class="mb-4">El ciclo de vida de las opciones tiene varias etapas clave. Haz clic en cada término para entender su significado:</p>
+
+                     <h4 class="text-lg font-semibold text-white mt-6 mb-3">Etapas del Ciclo y Términos Clave</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <button class="glossary-btn" data-term="1. Otorgamiento (Grant)" data-definition="Es el acto por el cual la empresa te otorga las stock options. Este es el punto de partida y generalmente viene acompañado de un acuerdo que detalla las condiciones.">1. Otorgamiento</button>
+                        <button class="glossary-btn" data-term="2. Devengo (Vesting)" data-definition="Es el proceso de 'ganarse' el derecho a ejercer tus opciones. Ocurre a lo largo del tiempo o al cumplir ciertos hitos, asegurando que permanezcas en la empresa para recibir el beneficio completo.">2. Devengo (Vesting)</button>
+                        <button class="glossary-btn" data-term="3. Ejercicio (Exercise)" data-definition="Es el acto de usar tu opción para comprar las acciones al Strike Price. En este momento, te conviertes oficialmente en accionista.">3. Ejercicio</button>
+                        <button class="glossary-btn" data-term="4. Tenencia (Holding)" data-definition="Una vez ejercidas, eres dueño de las acciones. Puedes conservarlas (hold) esperando que su valor aumente.">4. Tenencia (Holding)</button>
+                        <button class="glossary-btn" data-term="5. Venta (Selling)" data-definition="Decides vender tus acciones. La diferencia entre el precio de venta y el valor de la acción cuando la ejerciste (el FMV en ese momento) puede generar una segunda ganancia, sujeta a impuesto a las ganancias de capital.">5. Venta (Selling)</button>
+                        <button class="glossary-btn" data-term="Cliff" data-definition="Período inicial del vesting (comúnmente un año) durante el cual no se devenga ninguna opción. Si dejas la empresa antes del cliff, pierdes todas las opciones. Una vez superado, se devenga el primer tramo de opciones.">Cliff</button>
+                        <button class="glossary-btn" data-term="Strike Price" data-definition="También llamado 'Precio de Ejercicio'. Es el precio fijo al que tienes derecho a comprar la acción, sin importar su valor de mercado futuro.">Strike Price</button>
+                        <button class="glossary-btn" data-term="FMV (Fair Market Value)" data-definition="Valor Justo de Mercado. Es el precio de la acción en el mercado en un momento determinado. La diferencia entre el FMV y tu Strike Price al momento de ejercer es tu ganancia potencial.">FMV</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Módulo 3: Tributación Stock Options en Chile -->
+            <div class="module-item bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+                <div class="module-header p-5 cursor-pointer flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-teal-400">Módulo 3: Tributación Stock Options en Chile</h3>
+                    <svg class="chevron-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="module-content hidden p-5 border-t border-gray-700">
+                    <p class="mb-4">La forma en que tributas depende de si tu plan está <strong>"Pactado"</strong> (en tu contrato laboral o convenio) o <strong>"No Pactado"</strong> (más común en ofertas discrecionales o de multinacionales).</p>
+                    
+                    <h4 class="text-lg font-semibold text-white mt-6 mb-3">Tipos de Tributación</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                        <button class="glossary-btn text-center h-full" data-term="Pactadas en Contrato" data-definition='<div class="definition-item"><strong>Otorgamiento y Ejercicio de la Opción:</strong> NO constituye renta para ti. <strong class="text-teal-400">No pagas impuestos en estos momentos.</strong></div><div class="definition-item"><strong>Venta de la Opción (si es posible, antes de ejercerla):</strong> El mayor valor que obtengas constituye renta. <strong class="text-teal-400">Tributa con Impuestos Finales sobre la renta percibida.</strong> El mayor valor es la diferencia entre el precio de venta de la opción y el valor que pagaste por ella (si hubo pago), reajustado.</div><div class="definition-item"><strong>Venta de las Acciones adquiridas (después de ejercer la opción):</strong> El mayor valor que obtengas constituye renta tributable. <strong class="text-teal-400">Tributa con Impuestos Finales sobre la renta percibida.</strong></div>'>Pactadas en Contrato</button>
+                        <button class="glossary-btn text-center h-full" data-term="No Pactadas en Contrato" data-definition='<div class="definition-item"><strong>Otorgamiento de la Opción:</strong> NO constituye renta para ti. <strong class="text-teal-400">No pagas impuestos al recibir la opción.</strong></div><div class="definition-item"><strong>Ejercicio de la Opción:</strong> <strong class="text-teal-400">SÍ constituye renta para ti</strong>, considerada una mayor remuneración.<ul class="list-disc list-inside mt-2 pl-4 text-sm"><li><strong>¿Cómo se calcula esta "mayor remuneración"?</strong> Es la diferencia entre el valor de adquisición de las acciones (basado en el valor de mercado o valor libro a la fecha de ejercicio) y la suma de los valores que pagaste por la entrega de la opción (si hubo pago) y el precio que pagaste al ejercerla, todo reajustado por IPC.</li></ul></div><div class="definition-item"><strong>Venta de la Opción (si la vendes antes de ejercerla):</strong> El mayor valor obtenido constituye renta. <strong class="text-teal-400">Tributa con IGC o IA sobre la renta percibida.</strong></div><div class="definition-item"><strong>Venta de las Acciones adquiridas (después de ejercer la opción):</strong> El mayor valor que obtengas constituye renta tributable. <strong class="text-teal-400">Tributa según las reglas generales.</strong></div>'>No Pactadas en Contrato</button>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-gray-700 flex justify-center">
+                         <button class="glossary-btn w-full md:w-1/2 bg-blue-900 hover:bg-blue-800 text-white" 
+                                 data-term="Cálculo del Mayor Valor" 
+                                 data-definition='<div class="bg-gray-900 border border-gray-600 p-4 rounded-lg"><p class="text-center font-mono text-white text-sm md:text-base">(FMV - Strike Price) * N° Acciones Ejercidas</p></div><p class="mt-3 text-sm text-gray-400">Esta es la ganancia o "mayor valor" que se considera renta para fines tributarios al momento de ejercer la opción.</p>'>
+                            Mayor Valor
+                         </button>
+                    </div>
+
+                </div>
+            </div>
+
+             <!-- Módulo 4: Implicancias de Activos Extranjeros -->
+            <div class="module-item bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+                <div class="module-header p-5 cursor-pointer flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-teal-400">Módulo 4: Implicancias de Activos Extranjeros</h3>
+                    <svg class="chevron-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="module-content hidden p-5 border-t border-gray-700">
+                     <p class="mb-4">Si tus acciones o opciones son de una <strong class="text-teal-400">empresa extranjera</strong> (ej. casa matriz en EE.UU. o Europa), esto añade una capa CRÍTICA de obligaciones.</p>
+                     
+                     <div class="mt-6 mb-6 p-4 bg-yellow-900/30 border border-yellow-500 rounded-lg">
+                        <h4 class="font-bold text-yellow-300">¡Obligación de INFORMAR, no solo de pagar!</h4>
+                        <p class="text-yellow-200 mt-2 text-sm">Tener inversiones, acciones, opciones, o incluso cuentas bancarias en el extranjero donde se gestionan estos beneficios, te obliga a <strong>informar activamente al SII chileno.</strong><br>Esto es <strong>INDEPENDIENTE</strong> de si ya pagaste impuestos en otro país o si ya tributaste en Chile por el ejercicio (en planes no pactados). La omisión de esta información es una falta grave.</p>
+                    </div>
+                    
+                    <p class="mt-4">Esta obligación de informar se materializa principalmente a través de la Declaración Jurada 1929, que veremos a continuación. <strong class="text-teal-400">No subestimes este punto.</strong></p>
+
+                </div>
+            </div>
+
+            <!-- Módulo 5: Declaración Jurada 1929 y F22 -->
+            <div class="module-item bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+                <div class="module-header p-5 cursor-pointer flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-teal-400">Módulo 5: Declaración Jurada 1929 y F22</h3>
+                    <svg class="chevron-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="module-content hidden p-5 border-t border-gray-700">
+                    <p class="mb-4 text-center font-semibold text-yellow-300">Entender y cumplir con estas dos declaraciones es ABSOLUTAMENTE ESENCIAL para evitar problemas serios con el SII.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                        <button class="glossary-btn text-center h-full" data-term="Declaración Jurada Anual N° 1929 (DJ1929)" data-definition='<div class="definition-item">Es tu deber <strong>informar anualmente</strong> al SII sobre tus inversiones y operaciones financieras en el <strong>EXTERIOR</strong>.</div><div class="definition-item"><strong>¿Qué se informa?</strong> Tenencia de acciones extranjeras, opciones, dividendos, ganancias/pérdidas, cuentas de inversión, etc., al 31 de diciembre.</div><div class="definition-item"><strong>Fecha Límite:</strong> Usualmente 30 de junio; pero es ideal presentarla antes del F22 (abril) para consistencia.</div><div class="definition-item"><strong class="text-teal-400">La DJ1929 NO es un impuesto, ¡es una obligación de información! Pero no presentarla (o hacerlo mal) puede costar CARO en multas.</strong></div>'>Declaración Jurada Anual N° 1929 (DJ1929)</button>
+                        <button class="glossary-btn text-center h-full" data-term="Formulario 22 (F22) - Declaración Anual de Renta" data-definition='<div class="definition-item">Aquí <strong>declaras y pagas impuestos</strong> por las RENTAS obtenidas de estos planes.</div><div class="definition-item">"Mayor Remuneración" (ejercicio de opciones no pactadas).</div><div class="definition-item">"Ganancias de Capital" (venta de opciones o acciones).</div><div class="definition-item">La información de tu DJ1929 es la base para que el SII verifique tu F22. <strong>¡Deben conversar!</strong></div><div class="definition-item"><strong class="text-teal-400">Omitir rentas en el F22 significa evasión de impuestos, con multas e intereses acumulativos.</strong></div>'>Formulario 22 (F22) - Declaración Anual de Renta</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Módulo 6: Es Momento de Actuar -->
+             <div class="module-item bg-gray-800 rounded-lg shadow-lg border border-gray-700 overflow-hidden">
+                <div class="module-header p-5 cursor-pointer flex justify-between items-center">
+                    <h3 class="text-xl font-bold text-teal-400">Módulo 6: Es Momento de Actuar</h3>
+                    <svg class="chevron-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="module-content hidden p-5 border-t border-gray-700">
+                    <h4 class="text-lg font-semibold text-white text-center mb-4">¡Tu camino hacia la tranquilidad fiscal empieza acá!</h4>
+                    <ul class="space-y-4 text-gray-300">
+                        <li>Si esta información te ha generado dudas o identificaste posibles omisiones, <strong>es el momento de tomar el control y actuar de forma proactiva.</strong></li>
+                        <li class="pt-2">
+                            <strong class="text-white">Pasos para Proteger tu Patrimonio:</strong>
+                            <ul class="list-disc list-inside mt-2 space-y-2 pl-4">
+                                <li><strong>Reúne tu Información Clave:</strong> Contratos, cartas de otorgamiento, fechas (grant, vesting, ejercicio, venta), montos, extractos de brokers extranjeros. <em>(Ser organizado es el primer paso al ahorro).</em></li>
+                                <li><strong>Diagnóstico Honesto de tu Situación:</strong> ¿Pactado o no pactado? ¿Empresa local o extranjera? ¿Qué has declarado y qué podría faltar? <em>(La claridad hoy evita sorpresas mañana).</em></li>
+                                <li><strong>Explora la Regularización Voluntaria:</strong> Si hay incumplimientos, el SII ofrece vías para rectificar o presentar fuera de plazo. Actuar ANTES de una fiscalización SIEMPRE es más favorable. <em>(Adelantarte te da el control).</em></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div> <!-- Fin de modules-container -->
+        
+         <!-- Pie de página -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>© Milko Yunusic (<a href="mailto:milkoyunusic@gmail.com?subject=Solicitud%20reunión%2C%20asesoría%20financiera" class="text-teal-500 hover:underline">Contáctame para Asesoría Financiera</a>) - Guía Stock Options.</p>
+            <p class="mt-2">Esta guía tiene fines educativos. Verifica siempre la información en las fuentes oficiales del SII y considera buscar asesoría profesional para tu caso particular.</p>
+        </footer>
+
+    </div> <!-- Fin de container -->
+
+    <!-- Modal para Glosario -->
+    <div id="glossary-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 hidden modal-fade-in">
+        <div class="bg-gray-800 rounded-lg shadow-2xl max-w-sm w-full border border-gray-700">
+            <div class="flex justify-between items-center p-4 border-b border-gray-700">
+                <h3 id="modal-term" class="text-xl font-bold text-teal-400"></h3>
+                <button id="modal-close-btn" class="text-gray-400 hover:text-white">&times;</button>
+            </div>
+            <div id="modal-definition" class="p-5 text-gray-300 max-h-[60vh] overflow-y-auto">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const moduleItems = document.querySelectorAll('.module-item');
+
+            moduleItems.forEach(item => {
+                const header = item.querySelector('.module-header');
+                header.addEventListener('click', () => {
+                    const contentToToggle = item.querySelector('.module-content');
+                    const isOpening = contentToToggle.classList.contains('hidden');
+
+                    // Cierra todos los demás módulos
+                    moduleItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            const contentToClose = otherItem.querySelector('.module-content');
+                            const iconToReset = otherItem.querySelector('.chevron-icon');
+                            contentToClose.classList.add('hidden');
+                            iconToReset.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Abre o cierra el módulo clickeado
+                    if (isOpening) {
+                        contentToToggle.classList.remove('hidden');
+                        header.querySelector('.chevron-icon').style.transform = 'rotate(180deg)';
+                    } else {
+                        contentToToggle.classList.add('hidden');
+                        header.querySelector('.chevron-icon').style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+
+            // Lógica para el modal del glosario
+            const glossaryButtons = document.querySelectorAll('.glossary-btn');
+            const modal = document.getElementById('glossary-modal');
+            const modalTerm = document.getElementById('modal-term');
+            const modalDefinition = document.getElementById('modal-definition');
+            const closeBtn = document.getElementById('modal-close-btn');
+
+            glossaryButtons.forEach(btn => {
+                if (!btn.classList.contains('bg-blue-900')) {
+                    btn.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-teal-500', 'hover:text-white', 'border-gray-900');
+                } else {
+                     btn.classList.add('border-blue-950');
+                }
+                btn.classList.add(
+                    'font-semibold', 'py-2', 'px-4', 'rounded-lg', 'text-sm',
+                    'border-b-4',
+                    'active:translate-y-1', 'active:border-b-0',
+                    'transition-all', 'duration-150'
+                );
+            });
+            
+            glossaryButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const term = button.getAttribute('data-term');
+                    const definition = button.getAttribute('data-definition');
+                    
+                    modalTerm.textContent = term;
+                    modalDefinition.innerHTML = definition;
+                    modal.classList.remove('hidden');
+                });
+            });
+
+            function closeModal() {
+                modal.classList.add('hidden');
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Lógica para el toggle de información del Módulo 1
+            document.querySelectorAll('.info-container').forEach(container => {
+                const trigger = container.querySelector('.info-toggle-trigger');
+                const panel = container.querySelector('.info-panel');
+                if(trigger && panel) {
+                    trigger.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        panel.classList.toggle('hidden');
+                    });
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
